@@ -3,6 +3,7 @@ import { ArrowUpRight, Heart, Music2, Pause, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import melody from '@/assets/birthday-melody.wav.asset.json';
 import bow from '@/assets/green-bow.png';
+import disco from '@/assets/cdisco.png.asset.json';
 
 export function EnvelopeReveal({ children }: { children: ReactNode }) {
  const [stage, setStage] = useState<'closed' | 'opening' | 'opened'>('closed');
@@ -19,10 +20,11 @@ export function EnvelopeReveal({ children }: { children: ReactNode }) {
  }, [stage]);
  if (stage === 'opened') return <div ref={content} tabIndex={-1} className="revealed-invitation">{children}</div>;
  return <section className={`envelope-screen ${stage === 'opening' ? 'is-opening' : ''}`} aria-label="Invitación de cumpleaños de Camila">
+   <img className="envelope-disco" src={disco.url} alt="" width={200} height={200}/>
   <div className="envelope-heading"><p className="eyebrow">Una invitación muy especial</p><h1>Camila Arias<span>Mis 18</span></h1><p className="envelope-date">31 · OCTUBRE · 2026</p></div>
   <div className="envelope-scene" aria-hidden="true">
    <span className="envelope-spark spark-one">✦</span><span className="envelope-spark spark-two">✧</span>
-   <div className="envelope-object"><div className="envelope-back"/><div className="envelope-letter"><span>Estás invitad@</span><strong>Camila</strong><p>Una fecha, mil recuerdos. ♡</p></div><div className="envelope-pocket"/><div className="envelope-flap"/><div className="envelope-seal"><Heart size={23} strokeWidth={1.3}/></div><img className="envelope-bow" src={bow} alt="" width={1024} height={1024}/></div>
+    <div className="envelope-object"><div className="envelope-back"/><div className="envelope-letter"><span>Estás invitad@</span><strong>Camila</strong><p>Una fecha, mil recuerdos. ♡</p></div><div className="envelope-pocket"/><div className="envelope-flap"/><div className="envelope-address"><span>Para:</span><strong>mi persona favorita</strong><small>QUITO · ECUADOR</small></div><div className="envelope-seal"><Heart size={23} strokeWidth={1.3}/></div><img className="envelope-bow" src={bow} alt="" width={1024} height={1024}/></div>
   </div>
   <Button variant="invitation" className="envelope-open" onClick={() => setStage('opening')} disabled={stage !== 'closed'}> {stage === 'opening' ? 'Para ti, con cariño…' : 'Abrir invitación'} <ArrowUpRight size={16}/></Button>
   <p className="envelope-signature">Con cariño, Cami ♡</p>
