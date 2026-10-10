@@ -31,7 +31,7 @@ function Index() {
    <div className="collage">
     <CalendarNote/>
     <div className="polaroid"><span className="photo-tape"/><img src={portrait.url} alt="Camila Arias" className="portrait" width={768} height={960}/><div className="photo-label">Camila Arias ♡</div><img src={heart.url} className="photo-heart" alt="" width={150} height={150}/></div>
-    <div className="age-note"><img src={star.url} className="age-star" alt="" width={60} height={60}/><div className="age-number">18</div><div className="age-caption">& so much to live</div></div>
+    <div className="age-note"><img src={star.url} className="age-star" alt="" width={60} height={60}/><div className="age-number">18</div><div className="age-caption">make a wish ♡</div></div>
     <img src={kiss.url} className="collage-kiss" alt="" width={120} height={100}/><span className="collage-annotation">mi día, contigo ♡</span>
    </div>
    <p className="intro">Hay momentos que se vuelven inolvidables<br/>cuando los compartes con tus personas favoritas.<br/>Y tú eres una de ellas.</p>

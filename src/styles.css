@@ -104,14 +104,14 @@ textarea.note-input { resize:vertical; min-height:100px; font-family:var(--font-
 @media (prefers-reduced-motion:no-preference) { .hero-bow { animation:bow-drift 6s ease-in-out infinite; } .hero { animation:paper-in .7s ease-out both; } @keyframes bow-drift { 50% { transform:translateY(-7px) rotate(-12deg); } } @keyframes paper-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } } }
 @media(max-width:760px) {
  .invitation { padding:0 14px; } .topbar { height:70px; margin:0 22px; } .topbar-label { display:none; }
- .hero { padding:38px 15px 28px; } .hero-heading { font-size:55px; margin-top:24px; } .hero-heading em { font-size:86px; } .hero-heading .tiny-star { font-size:22px; margin:0 9px; }
+ .hero { padding:28px 15px 22px; } .hero-heading { font-size:51px; margin-top:24px; } .hero-heading em { font-size:74px; } .hero-heading .tiny-star { display:none; }
  .hero-bow { width:100px; height:100px; left:-8px; top:40px; } .hero-disco { width:68px; height:68px; right:2px; top:58px; }
- .collage { height:365px; margin-top:24px; width:100%; } .polaroid { width:213px; top:15px; } .portrait { height:230px; } .photo-label { font-size:23px; } .photo-tape { left:56px; }
- .calendar-note { width:117px; left:0; top:195px; z-index:3; padding:9px; transform:rotate(-10deg); } .calendar-title { font-size:18px; } .calendar-grid { font-size:7px; gap:1px; line-height:13px; } .calendar-foot { font-size:14px; }
- .age-note { width:86px; right:-3px; top:78px; z-index:3; } .age-number { font-size:87px; } .age-caption { font-size:21px; } .age-star { width:23px; height:23px; top:-5px; right:0; }
- .photo-heart { width:65px; height:65px; right:-24px; bottom:31px; } .collage-kiss { width:49px; height:46px; left:16px; bottom:164px; } .collage-annotation { right:5px; bottom:19px; font-size:22px; }
+ .collage { height:317px; margin-top:24px; width:100%; } .polaroid { width:193px; top:15px; } .portrait { height:205px; } .photo-label { font-size:21px; } .photo-tape { left:46px; }
+ .calendar-note { width:109px; left:0; top:161px; z-index:3; padding:9px; transform:rotate(-10deg); } .calendar-title { font-size:18px; } .calendar-grid { font-size:7px; gap:1px; line-height:13px; } .calendar-foot { font-size:14px; }
+ .age-note { width:72px; right:-6px; top:44px; z-index:3; } .age-number { font-size:78px; } .age-caption { font-size:17px; white-space:nowrap; } .age-star { width:23px; height:23px; top:-5px; right:0; }
+ .photo-heart { width:55px; height:55px; right:-20px; bottom:26px; } .collage-kiss { width:42px; height:39px; left:8px; bottom:166px; } .collage-annotation { right:0; bottom:19px; font-size:21px; }
  .intro { font-size:12px; max-width:290px; } .date-band { padding:24px 8px; } .date-band .date { font-size:26px; } .date-band .date span { margin:0 7px; font-size:13px; }
  .section { padding:48px 22px; } .section-heading { font-size:39px; } .event-grid { grid-template-columns:1fr; gap:23px; } .event-item { padding:24px 10px; }
  .guestbook-bow { width:70px; height:70px; right:-10px; top:-14px; } .notes { grid-template-columns:1fr; } .page-footer { margin:0 22px; gap:15px; font-size:8px; } .final-section h2 { font-size:38px; }
 }
-@media(max-width:370px) { .hero-heading em { font-size:72px; } .polaroid { width:186px; } .portrait { height:214px; } .age-note { right:-8px; } .hero-bow { width:85px; } .calendar-note { width:107px; } }
+@media(max-width:370px) { .hero-heading em { font-size:64px; } .polaroid { width:172px; } .portrait { height:195px; } .age-note { right:-8px; width:62px; } .age-number { font-size:66px; } .hero-bow { width:85px; } .calendar-note { width:100px; } }
