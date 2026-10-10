@@ -14,13 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      event_ai_gate: {
+        Row: {
+          id: number
+          paused_message: string | null
+          request_count: number
+          window_start: string
+        }
+        Insert: {
+          id?: number
+          paused_message?: string | null
+          request_count?: number
+          window_start?: string
+        }
+        Update: {
+          id?: number
+          paused_message?: string | null
+          request_count?: number
+          window_start?: string
+        }
+        Relationships: []
+      }
+      event_rsvps: {
+        Row: {
+          attending: boolean
+          created_at: string
+          guest_name: string
+          id: string
+          party_size: number
+          submission_id: string
+        }
+        Insert: {
+          attending: boolean
+          created_at?: string
+          guest_name: string
+          id?: string
+          party_size: number
+          submission_id: string
+        }
+        Update: {
+          attending?: boolean
+          created_at?: string
+          guest_name?: string
+          id?: string
+          party_size?: number
+          submission_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_event_question: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
