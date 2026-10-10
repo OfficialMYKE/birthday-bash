@@ -14,3 +14,6 @@
 - Store imported repository media as Lovable asset pointers and generated artwork as ES module imports, so all invitation media is served by the project.
 - Preserve the guestbook's session-only state for frontend redesigns; persistent shared messages require a separate backend request.
 - Keep the envelope reveal as a session-only wrapper around the invitation, with timed stages and reduced-motion support, so opening does not affect event content or guestbook behavior.
+- Keep guest tools in a dedicated invitation module and event validation/calendar data in a shared library, so calendar exports and attendance use consistent event rules.
+- Store RSVP rows with insert-only guest permissions and no public reads; use submission UUIDs for retry deduplication so guest information stays private.
+- Run one-question AI calls through public server functions with server-only Gateway helpers, a durable request gate and terminal-error pause, so secrets and private attendance never reach the model or browser.

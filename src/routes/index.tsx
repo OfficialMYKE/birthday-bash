@@ -9,6 +9,7 @@ import kiss from '@/assets/kiss.png.asset.json';
 import star from '@/assets/sstar.png.asset.json';
 import bow from '@/assets/green-bow.png';
 import eighteen from '@/assets/green-eighteen.png';
+import { AttendanceForm, CalendarSave, EventQuestions } from '@/components/invitation/guest-tools';
 
 export const Route = createFileRoute('/')({
  head: () => ({meta:[
@@ -36,15 +37,17 @@ function Index() {
     <img src={kiss.url} className="collage-kiss" alt="" width={120} height={100}/><span className="collage-annotation">mi día, contigo ♡</span>
    </div>
    <p className="intro">Hay momentos que se vuelven inolvidables<br/>cuando los compartes con tus personas favoritas.<br/>Y tú eres una de ellas.</p>
-   <Button variant="invitation" asChild><a href={whatsappUrl} target="_blank" rel="noreferrer"><Heart size={15}/> Sí, ¡ahí estaré! <ArrowUpRight size={14}/></a></Button>
+    <Button variant="invitation" asChild><a href="#confirmar"><Heart size={15}/> Sí, ¡ahí estaré! <ArrowDown size={14}/></a></Button>
    <a href="#detalles" className="hero-footer">Todos los detalles <ArrowDown size={12}/></a>
   </section>
-  <div className="date-band"><p className="eyebrow">Save the date</p><p className="date">Sábado <span>♡</span> 31 de octubre <span>♡</span> 2026</p></div>
+   <div className="date-band"><p className="eyebrow">Save the date</p><p className="date">Sábado <span>♡</span> 31 de octubre <span>♡</span> 2026</p><CalendarSave/></div>
   <section id="detalles" className="section"><p className="eyebrow">El plan de nuestro día</p><h2 className="section-heading">Un día para <em>recordar.</em></h2><p className="section-subtitle">Dos momentos especiales. Las mismas ganas de celebrar contigo.</p>
    <div className="event-grid"><article className="event-item"><Church className="event-icon"/><p className="eyebrow">01 · Con el corazón</p><h3>La ceremonia</h3><p className="event-time">9:00 a.m. — 11:00 a.m.</p><p>Iglesia de Amagasí del Inca</p><p>Quito</p><Button variant="stationery" asChild><a href="https://www.google.com/maps/search/?api=1&query=Iglesia+de+Amagasi+del+Inca+Quito" target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article>
    <article className="event-item"><PartyPopper className="event-icon"/><p className="eyebrow">02 · A celebrar</p><h3>La recepción</h3><p className="event-time">12:00 p.m. — 6:00 p.m.</p><p>Propiedad del Nogal</p><p>Perucho</p><Button variant="stationery" asChild><a href="https://www.google.com/maps/search/?api=1&query=Propiedad+del+Nogal+Perucho" target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article></div>
   </section>
-  <section className="guestbook-band"><div className="section"><Guestbook/></div></section>
+   <AttendanceForm/>
+   <EventQuestions/>
+   <section className="guestbook-band"><div className="section"><Guestbook/></div></section>
   <section className="final-section"><h2>Los mejores recuerdos llevan tu nombre.</h2><Button variant="invitation" asChild><a href={whatsappUrl} target="_blank" rel="noreferrer"><Heart size={15}/> Confirmar por WhatsApp <ArrowUpRight size={14}/></a></Button></section>
   <footer className="page-footer"><span>Camila Arias · Mis 18</span><span>Hecho con mucho cariño ♡ · 31.10.2026</span></footer>
   </div></main></EnvelopeReveal>;

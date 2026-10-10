@@ -182,3 +182,20 @@ textarea.note-input { resize:vertical; min-height:100px; font-family:var(--font-
 }
 @media(max-width:370px) { .hero-heading em { font-size:44px; } .hero-heading { font-size:34px; } .age-note { width:108px; } .polaroid { width:174px; } .calendar-note { width:95px; } .form-bottom { flex-wrap:wrap; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .revealed-invitation,.is-opening .envelope-flap,.is-opening .envelope-letter,.is-opening .envelope-object { animation:none; } .envelope-heading,.is-opening .envelope-heading,.is-opening .envelope-open,.is-opening .envelope-signature { transition:none; } }
+.calendar-save { margin-top:22px; }
+.attendance-section,.questions-section { border-top:1px solid var(--border); }
+.guest-tool-form { max-width:570px; margin-inline:auto; }
+.attendance-options { border:0; padding:0; margin:0 0 25px; }
+.attendance-options legend { font-size:10px; text-transform:uppercase; margin-bottom:15px; color:var(--muted-foreground); }
+.attendance-options label { display:flex; align-items:center; gap:10px; text-transform:none; font-size:13px; margin:12px 0; color:var(--foreground); }
+.attendance-options input { accent-color:var(--primary); width:17px; height:17px; }
+.party-input { max-width:130px; display:block; }
+.attendance-success { padding:30px 0; }
+.attendance-success svg { margin:auto; color:var(--primary); }
+.attendance-success h3 { font-family:var(--font-script); font-size:34px; margin:15px 0; }
+.attendance-success p { font-size:13px; line-height:1.8; }
+.event-answer { max-width:570px; margin:25px auto 0; border-left:2px solid var(--primary); padding:5px 22px; text-align:left; }
+.event-answer > p:last-child { font-size:14px; line-height:1.9; white-space:pre-wrap; overflow-wrap:anywhere; }
+.tool-error { color:var(--destructive); font-size:12px; line-height:1.8; overflow-wrap:anywhere; margin:16px 0; }
+@media(prefers-reduced-motion:no-preference) { .busy-icon { animation:spin 1.2s linear infinite; } @keyframes spin { to { transform:rotate(360deg); } } }
+@media(max-width:760px) { .hero-disco { top:218px; right:-16px; width:75px; height:75px; } }
