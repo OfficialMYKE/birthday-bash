@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { answerFromEventDetails, attendanceSchema, attendanceWhatsAppMessage, celebrationCalendar, whatsappContacts, whatsappUrl } from '@/lib/event';
+import { answerFromEventDetails, attendanceSchema, attendanceWhatsAppMessage, ceremonyCalendarEvent, celebrationCalendar, churchMapsUrl, googleCalendarUrl, receptionCalendarEvent, whatsappContacts, whatsappUrl } from '@/lib/event';
 const base = { submissionId: 'ba107144-bc00-45a3-9a0d-10622687162d', name: 'Ana' };
 describe('Event tools', () => {
  it('records attendance and the total number of people', () => {
@@ -56,5 +56,23 @@ describe('WhatsApp confirmation', () => {
   expect(attendanceWhatsAppMessage({ name: 'Ana', attending: true, partySize: 1 }, 'camila')).toContain('¡Hola Camila!');
   expect(attendanceWhatsAppMessage({ name: 'Ana', attending: true, partySize: 1 }, 'papa')).toContain('Papá de Camila');
   expect(attendanceWhatsAppMessage({ name: 'Ana', attending: true, partySize: 1 }, 'papa')).not.toContain('¡Hola Camila!');
+ });
+});
+describe('Google Calendar events', () => {
+ it('builds a Google Calendar template URL with the right dates', () => {
+  const url = googleCalendarUrl(ceremonyCalendarEvent);
+  expect(url).toContain('https://calendar.google.com/calendar/render?');
+  expect(url).toContain('action=TEMPLATE');
+  expect(url).toContain('dates=20261031T140000Z%2F20261031T160000Z');
+  expect(googleCalendarUrl(receptionCalendarEvent)).toContain('dates=20261031T170000Z%2F20261031T230000Z');
+ });
+ it('uses the church maps short link as the ceremony location', () => {
+  expect(churchMapsUrl).toBe('https://maps.app.goo.gl/axkAyUdVQWWHcy2i7');
+  expect(ceremonyCalendarEvent.location).toBe(churchMapsUrl);
+  expect(decodeURIComponent(googleCalendarUrl(ceremonyCalendarEvent))).toContain(churchMapsUrl);
+  expect(receptionCalendarEvent.location).toContain('Propiedad del Nogal');
+ });
+ it('keeps the downloadable ics pointing at the same church link', () => {
+  expect(celebrationCalendar()).toContain(churchMapsUrl);
  });
 });

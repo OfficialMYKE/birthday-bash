@@ -15,6 +15,44 @@ export const eventDetails = {
 };
 export const ceremonyStartUtc = Date.UTC(2026, 9, 31, 14, 0, 0);
 
+export const churchMapsUrl = 'https://maps.app.goo.gl/axkAyUdVQWWHcy2i7';
+export const receptionMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Propiedad+del+Nogal+Perucho';
+
+export interface CalendarEventInput {
+ title: string;
+ startUtc: string;
+ endUtc: string;
+ location: string;
+ details: string;
+}
+
+export const ceremonyCalendarEvent: CalendarEventInput = {
+ title: 'Mis 18 · Camila Arias · La ceremonia',
+ startUtc: '20261031T140000Z',
+ endUtc: '20261031T160000Z',
+ location: churchMapsUrl,
+ details: `Ceremonia de los 18 años de Camila Arias. De 9:00 a.m. a 11:00 a.m., hora de Ecuador.\n${eventDetails.ceremony.location}, Quito.\n\nUbicación: ${churchMapsUrl}`,
+};
+
+export const receptionCalendarEvent: CalendarEventInput = {
+ title: 'Mis 18 · Camila Arias · La recepción',
+ startUtc: '20261031T170000Z',
+ endUtc: '20261031T230000Z',
+ location: eventDetails.reception.location,
+ details: `Recepción de los 18 años de Camila Arias. De 12:00 p.m. a 6:00 p.m., hora de Ecuador.\n${eventDetails.reception.location}, Perucho.\n\nUbicación: ${receptionMapsUrl}`,
+};
+
+export function googleCalendarUrl(event: CalendarEventInput) {
+ const params = new URLSearchParams({
+  action: 'TEMPLATE',
+  text: event.title,
+  dates: `${event.startUtc}/${event.endUtc}`,
+  details: event.details,
+  location: event.location,
+ });
+ return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 export const whatsappContacts = {
  camila: { label: 'Camila', phone: '593998891074' },
  papa: { label: 'Papá', phone: '593979105887' },
@@ -45,7 +83,7 @@ export function answerFromEventDetails(question: string): string {
  if (has('comida', 'catering', 'menu', 'almuerzo', 'banquete', 'celiaco', 'vegetariano')) return 'Los detalles del menú no están especificados; puedes preguntarle a Camila. ♡';
  if (has('acompanante', 'puedo llevar', 'novio', 'novia', 'amigos', 'invitar')) return 'Claro: en el formulario de confirmación indica el total de personas incluyéndote y quedará registrado. ♡';
  if (has('confirmar', 'asistencia', 'asistire', 'confirmacion', 'rsvp')) return 'La confirmación se hace en el formulario de esta invitación: escribe tu nombre, indica si asistirás y el total de personas incluyéndote. ♡';
- if (has('calendario', 'agenda', 'guardar')) return 'Usa el botón "Guardar en mi calendario": incluye la ceremonia y la recepción del sábado 31 de octubre de 2026. ♡';
+ if (has('calendario', 'agenda', 'guardar')) return 'Usa los botones de "Ceremonia" y "Recepción" para crearlos en Google Calendar, o descarga el archivo .ics. Ambos son el sábado 31 de octubre de 2026. ♡';
  if (has('zona horaria', 'hora de ecuador', 'utc', 'hora local')) return 'Toda la celebración sigue la hora de Ecuador (UTC-5). ♡';
  if (has('cuantos anos', 'que edad', 'tiene de edad', 'cumples')) return 'Camila está cumpliendo 18 años. ♡';
  if (has('fecha', 'dia', 'cuando')) return 'La celebración es el sábado 31 de octubre de 2026, en Ecuador. ♡';
@@ -58,8 +96,8 @@ export function answerFromEventDetails(question: string): string {
 
 export function celebrationCalendar() {
  const { error, value } = createEvents([
-  { title: 'Mis 18 · Camila Arias · La ceremonia', start: [2026,10,31,14,0], end: [2026,10,31,16,0], startInputType: 'utc', endInputType: 'utc', location: eventDetails.ceremony.location, description: 'Cumpleaños de Camila Arias. Ceremonia de 9:00 a.m. a 11:00 a.m., hora de Ecuador.', uid: 'camila-18-ceremony-20261031@invitation', url: 'https://www.google.com/maps/search/?api=1&query=Iglesia+de+Amagasi+del+Inca+Quito' },
-  { title: 'Mis 18 · Camila Arias · La recepción', start: [2026,10,31,17,0], end: [2026,10,31,23,0], startInputType: 'utc', endInputType: 'utc', location: eventDetails.reception.location, description: 'Cumpleaños de Camila Arias. Recepción de 12:00 p.m. a 6:00 p.m., hora de Ecuador.', uid: 'camila-18-reception-20261031@invitation', url: 'https://www.google.com/maps/search/?api=1&query=Propiedad+del+Nogal+Perucho' },
+  { title: 'Mis 18 · Camila Arias · La ceremonia', start: [2026,10,31,14,0], end: [2026,10,31,16,0], startInputType: 'utc', endInputType: 'utc', location: eventDetails.ceremony.location, description: 'Cumpleaños de Camila Arias. Ceremonia de 9:00 a.m. a 11:00 a.m., hora de Ecuador.', uid: 'camila-18-ceremony-20261031@invitation', url: churchMapsUrl },
+  { title: 'Mis 18 · Camila Arias · La recepción', start: [2026,10,31,17,0], end: [2026,10,31,23,0], startInputType: 'utc', endInputType: 'utc', location: eventDetails.reception.location, description: 'Cumpleaños de Camila Arias. Recepción de 12:00 p.m. a 6:00 p.m., hora de Ecuador.', uid: 'camila-18-reception-20261031@invitation', url: receptionMapsUrl },
  ]);
  if (error || !value) throw new Error('No se pudo crear el calendario. Inténtalo nuevamente.');
  return value;

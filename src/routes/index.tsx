@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ArrowDown, ArrowUpRight, Church, Heart, MapPin, PartyPopper, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { EnvelopeReveal, Guestbook, MusicPlayer } from '@/components/invitation/controls';
-import { defaultConfirmMessage, defaultConfirmMessagePapa, whatsappContacts, whatsappUrl } from '@/lib/event';
+import { churchMapsUrl, defaultConfirmMessage, defaultConfirmMessagePapa, whatsappContacts, whatsappUrl } from '@/lib/event';
 import heart from '@/assets/chheart.png';
 import disco from '@/assets/cdisco.png';
 import kiss from '@/assets/kiss.png';
@@ -55,7 +55,7 @@ function Index() {
   </section>
    <div className="date-band"><p className="eyebrow">Save the date</p><p className="date">Sábado <span>♡</span> 31 de octubre <span>♡</span> 2026</p><Countdown/><CalendarSave/></div>
   <section id="detalles" className="section"><p className="eyebrow">El plan de nuestro día</p><h2 className="section-heading">Un día para <em>recordar.</em></h2><p className="section-subtitle">Dos momentos especiales. Las mismas ganas de celebrar contigo.</p>
-   <div className="event-grid"><article className="event-item"><Church className="event-icon"/><p className="eyebrow">01 · Con el corazón</p><h3>La ceremonia</h3><p className="event-time">9:00 a.m. — 11:00 a.m.</p><p>Iglesia de Amagasí del Inca</p><p>Quito</p><Button variant="stationery" asChild><a href="https://www.google.com/maps/search/?api=1&query=Iglesia+de+Amagasi+del+Inca+Quito" target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article>
+   <div className="event-grid"><article className="event-item"><Church className="event-icon"/><p className="eyebrow">01 · Con el corazón</p><h3>La ceremonia</h3><p className="event-time">9:00 a.m. — 11:00 a.m.</p><p>Iglesia de Amagasí del Inca</p><p>Quito</p><Button variant="stationery" asChild><a href={churchMapsUrl} target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article>
    <article className="event-item"><PartyPopper className="event-icon"/><p className="eyebrow">02 · A celebrar</p><h3>La recepción</h3><p className="event-time">12:00 p.m. — 6:00 p.m.</p><p>Propiedad del Nogal</p><p>Perucho</p><Button variant="stationery" asChild><a href="https://www.google.com/maps/search/?api=1&query=Propiedad+del+Nogal+Perucho" target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article></div>
   </section>
    <AttendanceForm/>

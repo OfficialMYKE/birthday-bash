@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useServerFn } from '@tanstack/react-start';
 import { CalendarPlus, Check, Heart, LoaderCircle, MessageCircle, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { attendanceSchema, attendanceWhatsAppMessage, celebrationCalendar, ceremonyStartUtc, questionSchema, whatsappContacts, whatsappUrl } from '@/lib/event';
+import { attendanceSchema, attendanceWhatsAppMessage, celebrationCalendar, ceremonyCalendarEvent, ceremonyStartUtc, googleCalendarUrl, questionSchema, receptionCalendarEvent, whatsappContacts, whatsappUrl } from '@/lib/event';
 import { askEventQuestion, submitAttendance } from '@/lib/event.functions';
 
 export function Countdown() {
@@ -29,13 +29,18 @@ export function Countdown() {
 
 export function CalendarSave() {
  const [error, setError] = useState('');
- return <div className="calendar-save"><Button variant="stationery" onClick={() => {
-  try {
-   const url = URL.createObjectURL(new Blob([celebrationCalendar()], { type: 'text/calendar;charset=utf-8' }));
-   const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'camila-mis-18.ics'; anchor.click();
-   window.setTimeout(() => URL.revokeObjectURL(url), 1000); setError('');
-  } catch (e) { setError(e instanceof Error ? e.message : 'No se pudo guardar.'); }
- }}><CalendarPlus size={15}/> Guardar en mi calendario</Button>{error && <p role="alert" className="tool-error">{error}</p>}</div>;
+ return <div className="calendar-save calendar-actions">
+  <Button variant="stationery" asChild><a href={googleCalendarUrl(ceremonyCalendarEvent)} target="_blank" rel="noreferrer"><CalendarPlus size={15}/> Ceremonia</a></Button>
+  <Button variant="stationery" asChild><a href={googleCalendarUrl(receptionCalendarEvent)} target="_blank" rel="noreferrer"><CalendarPlus size={15}/> Recepción</a></Button>
+  <button type="button" className="calendar-ics" onClick={() => {
+   try {
+    const url = URL.createObjectURL(new Blob([celebrationCalendar()], { type: 'text/calendar;charset=utf-8' }));
+    const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'camila-mis-18.ics'; anchor.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000); setError('');
+   } catch (e) { setError(e instanceof Error ? e.message : 'No se pudo guardar.'); }
+  }}>Descargar .ics</button>
+  {error && <p role="alert" className="tool-error">{error}</p>}
+ </div>;
 }
 
 export function AttendanceForm() {
