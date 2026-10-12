@@ -62,6 +62,27 @@ export type Database = {
         }
         Relationships: []
       }
+      guestbook_notes: {
+        Row: {
+          author_name: string
+          created_at: string
+          id: string
+          message: string
+        }
+        Insert: {
+          author_name: string
+          created_at?: string
+          id?: string
+          message: string
+        }
+        Update: {
+          author_name?: string
+          created_at?: string
+          id?: string
+          message?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

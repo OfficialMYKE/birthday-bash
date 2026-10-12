@@ -8,10 +8,21 @@ export const attendanceSchema = z.object({
  partySize: z.number().int().nonnegative(),
 }).refine(v => v.attending ? v.partySize >= 1 : v.partySize === 0, { message: 'Indica cuántas personas asistirán, incluyéndote.' });
 export const questionSchema = z.object({ question: z.string().trim().min(1).max(500) });
+export const guestNoteSchema = z.object({
+ name: z.string().trim().max(40, 'El nombre es muy largo.'),
+ message: z.string().trim().min(1, 'Escribe un mensaje para Camila.').max(300, 'Máximo 300 caracteres.'),
+});
+export interface GuestNote {
+ id: string;
+ author_name: string;
+ message: string;
+ created_at: string;
+}
 export const eventDetails = {
  host: 'Camila Arias', age: 18, date: '2026-10-31', timezone: 'America/Guayaquil',
  ceremony: { location: 'Iglesia de Amagasí del Inca, Quito', start: '09:00', end: '11:00' },
  reception: { location: 'Propiedad del Nogal, Perucho', start: '12:00', end: '18:00' },
+ dressCode: { attire: 'Formal', referenceColor: 'verde' },
 };
 export const ceremonyStartUtc = Date.UTC(2026, 9, 31, 14, 0, 0);
 
@@ -77,7 +88,7 @@ const normalizeQuestion = (value: string) => value.toLowerCase().normalize('NFD'
 export function answerFromEventDetails(question: string): string {
  const q = normalizeQuestion(question);
  const has = (...words: string[]) => words.some(word => q.includes(word));
- if (has('vestimenta', 'codigo de vestimenta', 'ropa', 'vestirse', 'etiqueta')) return 'El código de vestimenta no está especificado en la invitación; puedes consultarlo directamente con Camila. ♡';
+ if (has('vestimenta', 'codigo de vestimenta', 'ropa', 'vestirse', 'vestir', 'etiqueta', 'formal', 'traje', 'vestido', 'color')) return 'El código de vestimenta es formal, con el verde como color de referencia. ♡';
  if (has('regalo', 'regalar', 'mesa de regalos', 'sobre')) return 'Los detalles de regalos no están especificados; si deseas saber algo más, pregúntale directamente a Camila. ♡';
  if (has('transporte', 'autobus', 'carro', 'estacionamiento', 'parqueo', 'lleva')) return 'No hay información de transporte especificada; consúltalo con Camila. ♡';
  if (has('comida', 'catering', 'menu', 'almuerzo', 'banquete', 'celiaco', 'vegetariano')) return 'Los detalles del menú no están especificados; puedes preguntarle a Camila. ♡';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { answerFromEventDetails, attendanceSchema, attendanceWhatsAppMessage, ceremonyCalendarEvent, celebrationCalendar, churchMapsUrl, googleCalendarUrl, receptionCalendarEvent, whatsappContacts, whatsappUrl } from '@/lib/event';
+import { answerFromEventDetails, attendanceSchema, attendanceWhatsAppMessage, ceremonyCalendarEvent, celebrationCalendar, churchMapsUrl, eventDetails, guestNoteSchema, googleCalendarUrl, receptionCalendarEvent, whatsappContacts, whatsappUrl } from '@/lib/event';
 const base = { submissionId: 'ba107144-bc00-45a3-9a0d-10622687162d', name: 'Ana' };
 describe('Event tools', () => {
  it('records attendance and the total number of people', () => {
@@ -34,8 +34,13 @@ describe('Local event answers', () => {
   expect(answerFromEventDetails('¿Cuándo es el cumpleaños?')).toContain('31 de octubre de 2026');
   expect(answerFromEventDetails('¿Cuántos años cumple?')).toContain('18 años');
  });
+ it('shares the dress code with green as the reference color', () => {
+  expect(answerFromEventDetails('¿Qué vestimenta es?')).toContain('formal');
+  expect(answerFromEventDetails('¿Me puedo vestir de blanco?')).toContain('verde');
+  expect(eventDetails.dressCode.attire).toBe('Formal');
+  expect(eventDetails.dressCode.referenceColor).toBe('verde');
+ });
  it('declines to invent details that are not specified', () => {
-  expect(answerFromEventDetails('¿Qué vestimenta es?')).toContain('no está especificado');
   expect(answerFromEventDetails('¿Habrá transporte?')).toContain('No hay información');
  });
 });
@@ -74,5 +79,16 @@ describe('Google Calendar events', () => {
  });
  it('keeps the downloadable ics pointing at the same church link', () => {
   expect(celebrationCalendar()).toContain(churchMapsUrl);
+ });
+});
+describe('Guestbook notes', () => {
+ it('accepts a note and trims the fields', () => {
+  expect(guestNoteSchema.parse({ name: '  Ana  ', message: '  Feliz cumple!  ' })).toEqual({ name: 'Ana', message: 'Feliz cumple!' });
+  expect(guestNoteSchema.parse({ name: '', message: 'Un deseo bonito' }).name).toBe('');
+ });
+ it('rejects empty messages and oversized fields', () => {
+  expect(guestNoteSchema.safeParse({ name: '', message: '' }).success).toBe(false);
+  expect(guestNoteSchema.safeParse({ name: 'x'.repeat(41), message: 'hola' }).success).toBe(false);
+  expect(guestNoteSchema.safeParse({ name: '', message: 'x'.repeat(301) }).success).toBe(false);
  });
 });

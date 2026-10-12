@@ -57,6 +57,7 @@ function Index() {
   <section id="detalles" className="section"><p className="eyebrow">El plan de nuestro día</p><h2 className="section-heading">Un día para <em>recordar.</em></h2><p className="section-subtitle">Dos momentos especiales. Las mismas ganas de celebrar contigo.</p>
    <div className="event-grid"><article className="event-item"><Church className="event-icon"/><p className="eyebrow">01 · Con el corazón</p><h3>La ceremonia</h3><p className="event-time">9:00 a.m. — 11:00 a.m.</p><p>Iglesia de Amagasí del Inca</p><p>Quito</p><Button variant="stationery" asChild><a href={churchMapsUrl} target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article>
    <article className="event-item"><PartyPopper className="event-icon"/><p className="eyebrow">02 · A celebrar</p><h3>La recepción</h3><p className="event-time">12:00 p.m. — 6:00 p.m.</p><p>Propiedad del Nogal</p><p>Perucho</p><Button variant="stationery" asChild><a href="https://www.google.com/maps/search/?api=1&query=Propiedad+del+Nogal+Perucho" target="_blank" rel="noreferrer"><MapPin size={14}/> Ver ubicación <ArrowUpRight size={13}/></a></Button></article></div>
+   <aside className="dresscode-note" aria-label="Código de vestimenta"><img src={bow} alt="" aria-hidden="true" width={1024} height={1024}/><div><p className="eyebrow">Código de vestimenta</p><h3>Formal</h3><p>El color de referencia de la celebración es el <em>verde</em> ♡</p></div></aside>
   </section>
    <AttendanceForm/>
    <EventQuestions/>
