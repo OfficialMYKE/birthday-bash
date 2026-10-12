@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { attendanceSchema, questionSchema } from './event';
 
 export const submitAttendance = createServerFn({ method: 'POST' })
- .inputValidator((input: unknown) => attendanceSchema.parse(input))
+ .validator((input: unknown) => attendanceSchema.parse(input))
  .handler(async ({ data }) => {
   const { publicEventClient } = await import('./event.server');
   const client = publicEventClient();
@@ -12,7 +12,7 @@ export const submitAttendance = createServerFn({ method: 'POST' })
  });
 
 export const askEventQuestion = createServerFn({ method: 'POST' })
- .inputValidator((input: unknown) => questionSchema.parse(input))
+ .validator((input: unknown) => questionSchema.parse(input))
  .handler(async ({ data }) => {
   const { answerEventQuestion } = await import('./event.server');
   return answerEventQuestion(data.question);

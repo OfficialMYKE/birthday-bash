@@ -1,9 +1,31 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useServerFn } from '@tanstack/react-start';
-import { CalendarPlus, Check, LoaderCircle, MessageCircle, Send } from 'lucide-react';
+import { CalendarPlus, Check, Heart, LoaderCircle, MessageCircle, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { attendanceSchema, celebrationCalendar, questionSchema } from '@/lib/event';
+import { attendanceSchema, attendanceWhatsAppMessage, celebrationCalendar, ceremonyStartUtc, questionSchema, whatsappContacts, whatsappUrl } from '@/lib/event';
 import { askEventQuestion, submitAttendance } from '@/lib/event.functions';
+
+export function Countdown() {
+ const [left, setLeft] = useState<number | null>(null);
+ useEffect(() => {
+  const tick = () => setLeft(Math.max(0, ceremonyStartUtc - Date.now()));
+  tick();
+  const id = window.setInterval(tick, 1000);
+  return () => window.clearInterval(id);
+ }, []);
+ const pad = (n: number) => String(n).padStart(2, '0');
+ const cells: [string, string][] = left == null
+  ? [['días', '––'], ['horas', '––'], ['min', '––'], ['seg', '––']]
+  : [['días', String(Math.floor(left / 864e5))], ['horas', pad(Math.floor(left / 36e5) % 24)], ['min', pad(Math.floor(left / 6e4) % 60)], ['seg', pad(Math.floor(left / 1e3) % 60)]];
+ return <div className="countdown" role="timer" aria-label="Cuenta regresiva hasta la ceremonia">
+  {left === 0 ? <p className="countdown-today">¡Ya llegó el gran día! ♡</p>
+   : cells.map(([label, value]) =>
+    <div className="countdown-cell" key={label}>
+     <span className="countdown-value">{value}</span>
+     <span className="countdown-label">{label}</span>
+    </div>)}
+ </div>;
+}
 
 export function CalendarSave() {
  const [error, setError] = useState('');
@@ -26,7 +48,7 @@ export function AttendanceForm() {
  const [error, setError] = useState('');
  const submissionId = useRef<string | null>(null);
  return <section id="confirmar" className="section attendance-section"><p className="eyebrow">Tu lugar en este recuerdo</p><h2 className="section-heading">¿Celebramos <em>juntos?</em></h2>
- {sent ? <div className="attendance-success" role="status"><Check size={30}/><h3>¡Gracias, {name}!</h3><p>{attending ? `Tu asistencia quedó registrada para ${partySize} ${Number(partySize) === 1 ? 'persona' : 'personas'}.` : 'Registramos que no podrás asistir. Te llevaré en mi corazón. ♡'}</p></div> : <form className="note-form guest-tool-form" onSubmit={async e => {
+ {sent ? <div className="attendance-success" role="status"><Check size={30}/><h3>¡Gracias, {name}!</h3><p>{attending ? `Tu asistencia quedó registrada para ${partySize} ${Number(partySize) === 1 ? 'persona' : 'personas'}.` : 'Registramos que no podrás asistir. Te llevaré en mi corazón. ♡'}</p><div className="whatsapp-row"><Button variant="invitation" asChild><a href={whatsappUrl(whatsappContacts.camila.phone, attendanceWhatsAppMessage({ name: name.trim() || 'un invitado', attending, partySize: Number(partySize) }, 'camila'))} target="_blank" rel="noreferrer"><Heart size={15}/> Confirmar por WhatsApp <Send size={14}/></a></Button><Button variant="stationery" asChild><a href={whatsappUrl(whatsappContacts.papa.phone, attendanceWhatsAppMessage({ name: name.trim() || 'un invitado', attending, partySize: Number(partySize) }, 'papa'))} target="_blank" rel="noreferrer">Avisar a papá</a></Button></div></div> : <form className="note-form guest-tool-form" onSubmit={async e => {
   e.preventDefault(); if (busy) return; setError('');
   if (!submissionId.current) submissionId.current = crypto.randomUUID();
   const parsed = attendanceSchema.safeParse({ submissionId: submissionId.current, name, attending, partySize: attending ? Number(partySize) : 0 });
